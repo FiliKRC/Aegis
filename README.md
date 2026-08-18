@@ -5,4 +5,4 @@ Aegis è un laboratorio personale di ingegneria informatica nato per comprendere
 
 Fino a superare i limiti del possibile...
 
-Branch usato per sperimentare nuove idee
+Branch usato per sperimentare merge avanzati
