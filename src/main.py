@@ -1,6 +1,8 @@
+from core.aegis import Aegis
+
 def main():
-	print("Aegis initialized.")
+	agent = Aegis()
+	agent.start()
 
 if __name__ == "__main__":
 	main()
-
