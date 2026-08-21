@@ -1,4 +1,4 @@
-from core.aegis import Aegis
+from src.core.aegis import Aegis
 
 def main():
 	agent = Aegis()

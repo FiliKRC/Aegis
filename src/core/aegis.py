@@ -1,4 +1,4 @@
-from config import APP_NAME, VERSION, DEFAULT_MODEL
+from src.config import APP_NAME, VERSION, DEFAULT_MODEL
 
 class Aegis:
 	def __init__(self):
