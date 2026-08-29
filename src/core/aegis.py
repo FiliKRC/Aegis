@@ -1,4 +1,5 @@
 from src.config import APP_NAME, VERSION, DEFAULT_MODEL
+from src.utils.logger import Logger
 
 class Aegis:
 	def __init__(self):
@@ -6,24 +7,25 @@ class Aegis:
 		self.version = VERSION
 		self.model = DEFAULT_MODEL		
 		self.status = "initialized"
+		self.logger = Logger()
 
-		print(f"{self.name} core loaded.")
+		self.logger.info("Core loaded.")
 		print(f"Version: {self.version}")
 		print(f"Model: {self.model}")
 		print(f"Status: {self.status}")
 
 	def start(self):
 		if self.status == 'running':
-			print("Aegis is already running.")
+			self.logger.warning("Aegis is already running.")
 		else:
 			self.status = "running"
-			print("Aegis started.")
+			self.logger.info("Aegis started.")
 			print(f"Status: {self.status}")
 
 	def stop(self):
 		if self.status == 'running':
 			self.status = "stopped"
-			print("Aegis stopped.")
+			self.logger.info("Aegis stopped.")
 			print(f"Status: {self.status}")
 		else:
-			print("Aegis is already stopped.")
+			self.logger.warning("Aegis is already stopped.")
