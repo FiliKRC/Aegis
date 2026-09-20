@@ -1,5 +1,6 @@
 from urllib.request import urlopen
 from urllib.error import URLError
+import json
 
 class OllamaClient:
 	def __init__(self, base_url):
@@ -14,3 +15,17 @@ class OllamaClient:
 		
 		except URLError:
 			return False
+
+	def list_models(self):
+		url = f"{self.base_url}/api/tags"
+		
+		response = urlopen(url)
+		data = json.loads(response.read())
+
+		models = []
+		
+		for model in data["models"]:
+			models.append(model["name"])
+			
+
+		return models
