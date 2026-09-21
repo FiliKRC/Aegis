@@ -37,3 +37,15 @@ def test_list_models():
 		client = OllamaClient("http://localhost:11434")
 
 		assert client.list_models() == ["qwen3:4b","llama3:8b"]
+
+
+def test_generate():
+	response = Mock()
+	response.read.return_value = b'{"response": "Ciao da Aegis"}'
+
+	with patch("src.llm.ollama_client.urlopen") as mock_urlopen:
+		mock_urlopen.return_value = response
+	
+		client = OllamaClient("http://localhost:11434")
+
+		assert client.generate("Ciao", "qwen3:4b") == "Ciao da Aegis"
