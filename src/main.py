@@ -1,9 +1,16 @@
 from src.core.aegis import Aegis
+import sys
 
 def main():
-	agent = Aegis()
-	agent.start()
+	mode = sys.argv[1] if len(sys.argv) > 1 else "normal"
 
+	if mode not in ["normal", "red-team"]:
+		print("Modalità non valida. Usa: normal oppure red-team")
+		return
+
+	agent = Aegis(mode)
+	agent.start()
+ 
 	while True:
 		mex = input("Tu: ")
 

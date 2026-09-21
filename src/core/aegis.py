@@ -1,17 +1,23 @@
-from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL, SYSTEM_PROMPT
+from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL, NORMAL_SYSTEM_PROMPT, RED_TEAM_SYSTEM_PROMPT
 from src.utils.logger import Logger
 from src.llm.ollama_client import OllamaClient
 from urllib.error import URLError
 
 class Aegis:
-	def __init__(self):
+	def __init__(self, mode = "normal"):
 		self.name = APP_NAME
 		self.version = VERSION
 		self.model = DEFAULT_MODEL		
 		self.status = "initialized"
 		self.logger = Logger()
 		self.client = OllamaClient(OLLAMA_BASE_URL)
-		self.system_prompt = SYSTEM_PROMPT
+
+		if mode == "red-team":
+			self.system_prompt = RED_TEAM_SYSTEM_PROMPT
+
+		else:
+			self.system_prompt = NORMAL_SYSTEM_PROMPT
+		
 		self.history = [{"role": "system", "content": self.system_prompt}]
 
 		self.logger.info("Core loaded.")
