@@ -49,3 +49,19 @@ def test_generate():
 		client = OllamaClient("http://localhost:11434")
 
 		assert client.generate("Ciao", "qwen3:4b") == "Ciao da Aegis"
+
+
+def test_chat():
+	response = Mock()
+	response.read.return_value = b'{"message": {"content": "Ciao Filippo"}}'
+
+	with patch("src.llm.ollama_client.urlopen") as mock_urlopen:
+		mock_urlopen.return_value = response
+
+		client = OllamaClient("http://localhost:11434")
+
+		messages = [{"role": "user", "content": "Ciao"}]
+
+		result = client.chat(messages, "qwen3:4b")
+
+		assert result == "Ciao Filippo"

@@ -14,14 +14,25 @@ def test_start_state():
 	assert agent.status == 'running'
 
 def test_ask():
-	agent = Aegis()
+    agent = Aegis()
 
-	agent.client.generate = Mock(return_value = "Risposta finta")
+    agent.client.chat = Mock(return_value="Risposta finta")
 
-	result = agent.ask("Ciao")
-	assert result == "Risposta finta"
+    result = agent.ask("Ciao")
 
-	agent.client.generate.assert_called_once_with("Ciao", agent.model)
+    assert result == "Risposta finta"
+
+    assert agent.history[-2] == {
+        "role": "user",
+        "content": "Ciao"
+    }
+
+    assert agent.history[-1] == {
+        "role": "assistant",
+        "content": "Risposta finta"
+    }
+
+    agent.client.chat.assert_called_once()
 
 def test_stop_state():
 	agent = Aegis()

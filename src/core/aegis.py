@@ -1,4 +1,4 @@
-from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL
+from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL, SYSTEM_PROMPT
 from src.utils.logger import Logger
 from src.llm.ollama_client import OllamaClient
 
@@ -10,6 +10,8 @@ class Aegis:
 		self.status = "initialized"
 		self.logger = Logger()
 		self.client = OllamaClient(OLLAMA_BASE_URL)
+		self.system_prompt = SYSTEM_PROMPT
+		self.history = [{"role": "system", "content": self.system_prompt}]
 
 		self.logger.info("Core loaded.")
 		print(f"Version: {self.version}")
@@ -25,7 +27,10 @@ class Aegis:
 			print(f"Status: {self.status}")
 
 	def ask(self, prompt):
-		result = self.client.generate(prompt, self.model)
+		self.history.append({"role": "user", "content": prompt})
+		result = self.client.chat(self.history, self.model)
+
+		self.history.append({"role": "assistant", "content": result})
 		return result
 
 	def stop(self):
