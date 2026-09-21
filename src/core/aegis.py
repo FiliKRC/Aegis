@@ -1,5 +1,6 @@
-from src.config import APP_NAME, VERSION, DEFAULT_MODEL
+from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL
 from src.utils.logger import Logger
+from src.llm.ollama_client import OllamaClient
 
 class Aegis:
 	def __init__(self):
@@ -8,6 +9,7 @@ class Aegis:
 		self.model = DEFAULT_MODEL		
 		self.status = "initialized"
 		self.logger = Logger()
+		self.client = OllamaClient(OLLAMA_BASE_URL)
 
 		self.logger.info("Core loaded.")
 		print(f"Version: {self.version}")
@@ -21,6 +23,10 @@ class Aegis:
 			self.status = "running"
 			self.logger.info("Aegis started.")
 			print(f"Status: {self.status}")
+
+	def ask(self, prompt):
+		result = self.client.generate(prompt, self.model)
+		return result
 
 	def stop(self):
 		if self.status == 'running':
