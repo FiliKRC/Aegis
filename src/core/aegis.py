@@ -1,6 +1,7 @@
 from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL, SYSTEM_PROMPT
 from src.utils.logger import Logger
 from src.llm.ollama_client import OllamaClient
+from urllib.error import URLError
 
 class Aegis:
 	def __init__(self):
@@ -28,7 +29,14 @@ class Aegis:
 
 	def ask(self, prompt):
 		self.history.append({"role": "user", "content": prompt})
-		result = self.client.chat(self.history, self.model)
+
+		try:
+			result = self.client.chat(self.history, self.model)
+
+		except URLError:
+			self.history.pop()
+			self.logger.error("Ollama non disponibile.")
+			return "Non riesco a collegarmi a Ollama."
 
 		self.history.append({"role": "assistant", "content": result})
 		return result

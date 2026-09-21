@@ -1,5 +1,6 @@
 from src.core.aegis import Aegis
 from unittest.mock import Mock
+from urllib.error import URLError
 
 def test_initial_state():
 	agent = Aegis() 
@@ -33,6 +34,19 @@ def test_ask():
     }
 
     agent.client.chat.assert_called_once()
+	
+def test_ask_ollama_unavailable():
+    agent = Aegis()
+
+    agent.client.chat = Mock(
+        side_effect=URLError("Connection refused")
+    )
+
+    result = agent.ask("Ciao")
+
+    assert result == "Non riesco a collegarmi a Ollama."
+
+    assert len(agent.history) == 1
 
 def test_stop_state():
 	agent = Aegis()
