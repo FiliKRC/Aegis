@@ -1,10 +1,11 @@
-from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL, NORMAL_SYSTEM_PROMPT, RED_TEAM_SYSTEM_PROMPT
+from src.config import APP_NAME, VERSION, DEFAULT_MODEL, OLLAMA_BASE_URL
+from src.prompts.builder import build_normal_prompt, build_red_prompt
 from src.utils.logger import Logger
 from src.llm.ollama_client import OllamaClient
 from urllib.error import URLError
 
 class Aegis:
-	def __init__(self, mode = "normal"):
+	def __init__(self, mode = "normal", red_module = None):
 		self.name = APP_NAME
 		self.version = VERSION
 		self.model = DEFAULT_MODEL		
@@ -13,10 +14,10 @@ class Aegis:
 		self.client = OllamaClient(OLLAMA_BASE_URL)
 
 		if mode == "red-team":
-			self.system_prompt = RED_TEAM_SYSTEM_PROMPT
+			self.system_prompt = build_red_prompt(red_module)
 
 		else:
-			self.system_prompt = NORMAL_SYSTEM_PROMPT
+			self.system_prompt = build_normal_prompt()
 		
 		self.history = [{"role": "system", "content": self.system_prompt}]
 
