@@ -1,0 +1,2 @@
+# Nessuna dipendenza Python esterna a runtime: il codice usa la libreria standard.
+# Ollama e il modello locale si installano separatamente; vedi README.md.
