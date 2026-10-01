@@ -9,7 +9,13 @@ def main():
 		print("Modalità non valida. Usa: normal oppure red-team")
 		return
 
-	agent = Aegis(mode, red_module)
+	try:
+		agent = Aegis(mode, red_module)
+
+	except ValueError as error:
+		print(error)
+		return
+	
 	agent.start()
 
 	try:
