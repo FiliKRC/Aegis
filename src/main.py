@@ -11,17 +11,22 @@ def main():
 
 	agent = Aegis(mode, red_module)
 	agent.start()
- 
-	while True:
-		mex = input("Tu: ")
 
-		if mex == "Exit" or mex == "exit":
-			break
+	try:
+		while True:
+			mex = input("Tu: ")
 
-		response = agent.ask(mex)
-		print("Aegis: ", response)
+			if mex == "Exit" or mex == "exit":
+				break
 
-	agent.stop()
+			response = agent.ask(mex)
+			print("Aegis: ", response)
+			
+	except KeyboardInterrupt:
+		print()
+
+	finally:
+		agent.stop()
 
 if __name__ == "__main__":
 	main()
