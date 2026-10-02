@@ -84,7 +84,7 @@ python -m pytest -q
 
 I 13 test esistenti verificano gli stati della sessione, l'aggiornamento della cronologia, la gestione della connessione non disponibile, i messaggi di log e il client Ollama attraverso mock. Non richiedono un servizio Ollama attivo e non misurano la qualità delle risposte del modello.
 
-La configurazione GitHub Actions esegue la stessa suite con Python 3.12 su push e pull request. La presenza del file di configurazione non attesta un'esecuzione CI già completata.
+La configurazione GitHub Actions esegue la stessa suite con Python 3.12 su push e pull request.
 
 ## Limiti attuali
 
