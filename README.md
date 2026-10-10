@@ -6,8 +6,6 @@ Il valore principale del progetto non è soltanto il risultato finale, ma il pro
 
 L'obiettivo è approfondire progressivamente programmazione, architettura software, sistemi LLM, testing e cybersecurity, partendo dalle basi prima di affrontare sistemi più complessi.
 
-> Fino a superare i limiti del possibile...
-
 ---
 
 ## Stato del progetto
