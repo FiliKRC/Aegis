@@ -70,12 +70,6 @@ Avvio:
 python3 -m src.main red-team
 ```
 
-È inoltre disponibile il modulo Pentest:
-
-```bash
-python3 -m src.main red-team pentest
-```
-
 Il modulo segue un approccio evidence-driven basato su enumerazione, formulazione di ipotesi e validazione progressiva.
 
 ---
